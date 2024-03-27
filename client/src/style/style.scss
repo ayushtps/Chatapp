@@ -1,0 +1,126 @@
+//global variable
+
+$box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+$font-family: "Maison Nue Ext", sans-serif;
+$theam-color: #F7E3EE;
+$light-color: #FBFAF5;
+$dark-color: #3B3B3B;
+$white-color: #ffff;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font-family;
+}
+
+
+
+//common css
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+:where(.css-dev-only-do-not-override-djtmh8).ant-input-outlined:hover {
+    border-color: #3B3B3B;
+    background-color: #ffffff;
+}
+
+:where(.css-dev-only-do-not-override-djtmh8).ant-input-outlined:focus,
+:where(.css-dev-only-do-not-override-djtmh8).ant-input-outlined:focus-within {
+    border-color: #3B3B3B;
+    box-shadow: none;
+    outline: 0;
+    background-color: #ffffff;
+}
+
+:where(.css-dev-only-do-not-override-djtmh8).ant-input-outlined {
+    background: #ffffff;
+    border-color: #3B3B3B;
+}
+
+// ==========loginpage===========
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: $light-color;
+
+    .loginpage-container {
+        display: flex;
+        background-color: $theam-color;
+        flex-flow: column;
+        align-items: center;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: $box-shadow;
+
+        .logo-title {
+            font-size: 28px;
+            font-weight: 500;
+            font-family: "Maison Nue Ext", sans-serif;
+            margin-bottom: 30px;
+        }
+
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+
+            svg {
+                font-size: 25px;
+            }
+
+            input {
+                width: 320px;
+                height: 35px;
+                background-color: transparent !important;
+                outline: none;
+                font-size: 16px;
+                font-family: $font-family;
+            }
+
+            .login-forgot {
+                text-align: right;
+                color: #3B3B3B;
+                cursor: pointer;
+                margin-top: -44px;
+                font-size: 15px;
+                font-weight: 500;
+                margin-bottom: 20px;
+                font-family: $font-family;
+            }
+
+            .primary-btn {
+                width: 100%;
+                padding: 13px 0;
+                background-color: $dark-color;
+                color: $white-color;
+                cursor: pointer;
+                border: none;
+                font-weight: bold;
+                border-radius: 7px;
+            }
+
+            &:hover {
+                color: $light-color;
+            }
+        }
+        .account{
+            text-align: center;
+            margin-top: 35px;
+            cursor: pointer;
+        }
+    }
+}
