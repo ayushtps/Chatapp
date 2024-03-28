@@ -8,6 +8,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import Loaders from './Loaders';
+import { ContrastColor } from '../color';
 
 
 const Searchs = lazy(() => import('../component/specific/Searchs'))
@@ -46,7 +47,7 @@ function Header() {
     <>
       <Box sx={{ flexGrow: 1 }} height={'4rem'}>
         <AppBar position='static' sx={{
-          bgcolor: '#ea7070'
+          bgcolor: ContrastColor
         }}>
           <Toolbar>
             <Typography variant='h6' sx={{

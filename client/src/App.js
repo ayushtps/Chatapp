@@ -1,5 +1,5 @@
 import Main from "./Main-Route";
-import './style/style.scss'
+import './App.css'
 
 function App() {
   return (

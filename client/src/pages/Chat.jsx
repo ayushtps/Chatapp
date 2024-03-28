@@ -7,6 +7,7 @@ import { InputBox } from '../component/styles/StyledComponent';
 import FileMenu from '../component/dailogs/FileMenu';
 import { sampleMessage } from '../constants/SampleData';
 import MessageComponent from '../component/shared/MessageComponent';
+import { ContrastColor } from '../color';
 
 const user={
   _id:'abcdef',
@@ -59,7 +60,7 @@ function Chat() {
 
           <IconButton type='submit' sx={{
             rotate: '-30deg',
-            bgcolor: '#ea7070',
+            bgcolor: ContrastColor,
             color: 'white',
             marginLeft: '1rem',
             padding: '0.5rem',

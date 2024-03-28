@@ -2,19 +2,20 @@ import { Stack } from '@mui/material'
 import React from 'react'
 import ChatItem from '../shared/ChatItem'
 import { bgGradient } from '../../color'
+import { useParams } from 'react-router-dom'
 
 const ChatList = ({
     w = '100%',
     chats = [],
-    chatId,
     onlineuser = [],
     newMessagesAlert = [
         {
             chatId: '',
             count: 0,
         }
-    ], handalDeleteChat,    
+    ], handalDeleteChat,
 }) => {
+    const { chatId } = useParams()
     return (
         <>
             <Stack width={w} direction={'column'} overflow={'auto'} height={'100%'} sx={{

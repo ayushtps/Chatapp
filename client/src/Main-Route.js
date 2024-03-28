@@ -11,6 +11,9 @@ const PageNotFound = lazy(() => import('./pages/PageNotFound'))
 
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
 const DashBoard = lazy(() => import('./pages/admin/DashBoard'))
+const UserManage = lazy(() => import('./pages/admin/UserManage'))
+const ChatManage = lazy(() => import('./pages/admin/ChatManage'))
+const MessageManage = lazy(() => import('./pages/admin/MessageManage'))
 
 let user = true;
 
@@ -29,8 +32,11 @@ function Main() {
               <LoginRegister />
             </ProtectedRouting>
           } />
-          <Route path='/admin' element={<AdminLogin/>} />
-          <Route path='/admin/dashboard' element={<DashBoard/>} />
+          <Route path='/admin' element={<AdminLogin />} />
+          <Route path='/admin/dashboard' element={<DashBoard />} />
+          <Route path='/admin/chats' element={<ChatManage />} />
+          <Route path='/admin/users' element={<UserManage />} />
+          <Route path='/admin/messages' element={<MessageManage />} />
 
           <Route path='*' element={<PageNotFound />} />
         </Routes>

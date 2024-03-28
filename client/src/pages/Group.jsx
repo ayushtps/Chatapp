@@ -74,8 +74,7 @@ function Group() {
   }
 
   useEffect(() => {
-    if(chatId)
-    {
+    if (chatId) {
       setgroupName(`Group Name ${chatId}`)
       setgroupNameUpdated(`Group Name ${chatId}`)
     }
@@ -170,7 +169,7 @@ function Group() {
           flexDirection: 'column',
           position: 'relative',
           padding: '1rem 3rem',
-          
+
         }}>
           {
             IconBtns
@@ -198,7 +197,7 @@ function Group() {
                       boxShadow: '0 0 0.5rem rgba(0,0,0,0.2)',
                       padding: '1rem 2rem',
                       borderRadius: '1rem'
-                    }} handler={removeMemberHandler}  key={i}/>
+                    }} handler={removeMemberHandler} key={i} />
                   ))
                 }
 
@@ -232,9 +231,9 @@ function Group() {
 
 const GroupList = ({ w = '100%', myGroups = [], chatId }) => (
   <Stack width={w} sx={{
-    backgroundImage:bgGradient,
-    height:'100vh',
-    overflow:'auto'
+    backgroundImage: bgGradient,
+    height: '100vh',
+    overflow: 'auto'
   }}>
     {
       myGroups.length > 0 ? myGroups.map((x, i) => <GroupListItem group={x} chatId={chatId} key={i} />) : <Typography textAlign={'center'} padding={'1rem'}>No Group</Typography>

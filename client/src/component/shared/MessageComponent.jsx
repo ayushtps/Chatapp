@@ -3,6 +3,7 @@ import moment from 'moment'
 import React, { memo } from 'react'
 import { fileFormate } from '../../lib/Features'
 import RenderAttachment from './RenderAttachment'
+import { ContrastColor } from '../../color'
 
 const MessageComponent = ({ message, user }) => {
     const { sender, attachments = [], createdAt, content } = message
@@ -19,7 +20,7 @@ const MessageComponent = ({ message, user }) => {
             width: 'fit-content'
         }}>
             {
-                !sameSender && <Typography color={"#2694ab"} fontWeight={600} variant='caption'>{sender.name}</Typography>
+                !sameSender && <Typography color={ContrastColor} fontWeight={600} variant='caption'>{sender.name}</Typography>
             }
             {
                 content && <Typography>{content}</Typography>
