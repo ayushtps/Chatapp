@@ -5,7 +5,120 @@ export const sampleChats = [
         _id: '1',
         groupChat: false,
         members: ['1', '2']
-    }, {
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
+        avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
+        name: 'ayush paghadal11',
+        _id: '2',
+        groupChat: false,
+        members: ['1', '2']
+    }
+    , {
         avatar: ['https://www.w3schools.com/howto/img_avatar.png'],
         name: 'ayush paghadal11',
         _id: '2',
@@ -67,7 +180,7 @@ export const sampleMessage = [
             name: 'lasan 2'
         },
         chat: 'chatId',
-        createdAt: '2024-02-12T10:41:30.630Z'
+        createdAt: '2024-03-28T10:01:35.254Z'
     }
 ]
 

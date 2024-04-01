@@ -47,7 +47,8 @@ function Header() {
     <>
       <Box sx={{ flexGrow: 1 }} height={'4rem'}>
         <AppBar position='static' sx={{
-          bgcolor: ContrastColor
+          bgcolor: ContrastColor,
+          boxShadow:'none'
         }}>
           <Toolbar>
             <Typography variant='h6' sx={{
