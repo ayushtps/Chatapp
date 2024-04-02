@@ -1,4 +1,8 @@
+import { compare } from 'bcrypt';
 import { User } from '../modals/user.js'
+import { CookieOption, sendToken } from '../utils/features.js';
+import { TryCatch } from '../middlewares/error.js';
+import { ErrorHandler } from '../utils/utilitys.js';
 //create a user and save it to the database and save cookie
 
 const newUser = async (req, res) => {
@@ -8,17 +12,50 @@ const newUser = async (req, res) => {
         public_id: 'jbsad',
         url: 'jncdj',
     }
-    await User.create({
-        name: 'ayush',
-        username: 'paghadal',
-        password: 'ayush',
+    const user = await User.create({
+        name,
+        username,
+        password,
+        bio,
         avatar
     })
-    res.status(201).json({ message: 'User created successfullly' })
+    sendToken(res, user, 201, "User Created")
 };
-const login = (req, res) => {
-    res.send('hello world')
-};
+const login = TryCatch(async (req, res, next) => {
+    const { username, password } = req.body
 
+    const user = await User.findOne({ username }).select("+password")
 
-export { login, newUser }
+    if (!user) return next(new ErrorHandler('Invalid Username Or Password', 404))
+
+    const isMatch = await compare(password, user.password)
+
+    if (!isMatch) return next(new ErrorHandler('Invalid Username Or Password', 404))
+
+    sendToken(res, user, 200, `Welcome back,${user.name}`)
+})
+
+const getMyProfile = TryCatch(async (req, res) => {
+    const user = await User.findById(req.user)
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+const logout = TryCatch(async (req, res) => {
+    return res.status(200).cookie('chatt-token', "", { ...CookieOption, maxAge: 0 }).json({
+        success: true,
+        message: "Logged out successfully"
+    })
+})
+
+const searchUser = TryCatch(async (req, res) => {
+    const { name } = req.query
+    return res.status(200).cookie('chatt-token', "", { ...CookieOption, maxAge: 0 }).json({
+        success: true,
+        message: name
+    })
+})
+
+export { login, newUser, getMyProfile, logout, searchUser }
