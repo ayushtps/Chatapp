@@ -3,7 +3,7 @@ import mongoose, { Schema, Types, model } from "mongoose";
 const schema = new Schema({
     name: {
         type: String,
-        require: true,
+        required: true,
     },
     groupChat: {
         type: Boolean,

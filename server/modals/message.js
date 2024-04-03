@@ -7,26 +7,26 @@ const schema = new Schema({
         {
             public_id: {
                 type: String,
-                require: true,
+                required: true,
             },
             url: {
                 type: String,
-                require: true,
+                required: true,
             }
         }
     ],
     sender: {
         type: Types.ObjectId,
         ref: "User",
-        requir: true,
+        required: true,
     },
     chat: {
         type: Types.ObjectId,
         ref: "Chat",
-        requir: true,
+        required: true,
     },
 }, {
     timestamps: true,
 })
 
-export const Messages = mongoose.models.Messages || model("Messages", schema)
+export const Message = mongoose.models.Messages || model("Messages", schema)

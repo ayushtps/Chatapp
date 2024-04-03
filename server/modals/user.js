@@ -4,26 +4,26 @@ import { hash } from 'bcrypt';
 const schema = new Schema({
     name: {
         type: String,
-        require: true,
+        required: true,
     },
     username: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     password: {
         type: String,
-        require: true,
+        required: true,
         select: false,
     },
     avatar: {
         public_id: {
             type: String,
-            require: true,
+            required: true,
         },
         url: {
             type: String,
-            require: true,
+            required: true,
         }
     }
 }, {

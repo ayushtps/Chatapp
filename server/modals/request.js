@@ -9,12 +9,12 @@ const schema = new Schema({
     sender: {
         type: Types.ObjectId,
         ref: "User",
-        requir: true,
+        required: true,
     },
     receiver: {
         type: Types.ObjectId,
         ref: "User",
-        requir: true,
+        required: true,
     },
 }, {
     timestamps: true,
