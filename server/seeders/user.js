@@ -1,5 +1,6 @@
-import { User } from '../modals/user.js'
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
+import { User } from '../modals/user.js';
+
 const createUser = async (numUsers) => {
     try {
         const userPromise = [];
@@ -25,4 +26,4 @@ const createUser = async (numUsers) => {
     }
 }
 
-export { createUser }
+export { createUser };

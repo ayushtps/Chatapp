@@ -9,7 +9,6 @@ import { Message } from '../modals/message.js';
 
 const newGroupChat = TryCatch(async (req, res, next) => {
     const { name, members } = req.body;
-    if (members.length < 2) return next(new ErrorHandler("Group chat must be at least 3 members", 400))
 
     const allMembers = [...members, req.user]
 
@@ -75,8 +74,6 @@ const getMyGroup = TryCatch(async (req, res, next) => {
 const addmembers = TryCatch(async (req, res, next) => {
     const { chatId, members } = req.body;
 
-    if (!members || members.length < 1) return next(new ErrorHandler("Please provide members", 400))
-
     const chat = await Chat.findById(chatId);
 
     if (!chat) return next(new ErrorHandler("Chat not found ", 404));
@@ -90,8 +87,6 @@ const addmembers = TryCatch(async (req, res, next) => {
     const uniqueMembers = allNewMembers.filter((i) => !chat.members.includes(i._id.toString())).map((x) => x._id);
 
     chat.members.push(...uniqueMembers);
-
-    if (chat.members.length > 50) return next(new ErrorHandler("Group members limit reached", 400))
 
     await chat.save()
 
@@ -268,7 +263,7 @@ const deleteChat = TryCatch(async (req, res, next) => {
     await Promise.all([
         deleteFilesFromCloudinary(public_ids),
         chat.deleteOne(),
-        Message.deleteMany({chat:chatId}),
+        Message.deleteMany({ chat: chatId }),
     ])
 
     emitEvent(req, REFETCH_CHATS, chat.members)
@@ -280,4 +275,29 @@ const deleteChat = TryCatch(async (req, res, next) => {
 
 })
 
-export { newGroupChat, getMyChats, getMyGroup, addmembers, removeMembers, leaveGroup, sendAttachment, getChatDetails, renameGroup, deleteChat }
+const getMessages = TryCatch(async (req, res, next) => {
+
+    const chatId = req.params.id;
+    const { page = 1 } = req.query;
+
+    const limit = 20;
+    const skip = (page - 1) * limit;
+    const [messages, totalMessagesCount] = await Promise.all([Message.find({ chat: chatId })
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate("sender", "name")
+        .lean(),
+    Message.countDocuments({ chat: chatId })]);
+
+    const totalPages = Math.ceil(totalMessagesCount / limit)
+
+    return res.status(200).json({
+        success: true,
+        message: messages.reverse(),
+        totalPages
+    })
+
+})
+
+export { newGroupChat, getMyChats, getMyGroup, addmembers, removeMembers, leaveGroup, sendAttachment, getChatDetails, renameGroup, deleteChat, getMessages }
