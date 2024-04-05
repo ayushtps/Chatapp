@@ -6,6 +6,7 @@ import { TryCatch } from '../middlewares/error.js';
 import { ErrorHandler } from '../utils/utilitys.js';
 import { Chat } from '../modals/chat.js';
 import { NEW_REQUEST, REFETCH_CHATS } from '../constants/events.js';
+import { getOtherMember } from '../lib/helper.js';
 //create a user and save it to the database and save cookie
 
 const newUser = async (req, res) => {
@@ -39,8 +40,9 @@ const login = TryCatch(async (req, res, next) => {
     sendToken(res, user, 200, `Welcome back,${user.name}`)
 })
 
-const getMyProfile = TryCatch(async (req, res) => {
+const getMyProfile = TryCatch(async (req, res, next) => {
     const user = await User.findById(req.user)
+    if (!user) return next(new ErrorHandler("User not found", 404))
     res.status(200).json({
         success: true,
         user
@@ -73,7 +75,7 @@ const searchUser = TryCatch(async (req, res) => {
     })
 })
 
-const sendFriendRequest = TryCatch(async (req, res) => {
+const sendFriendRequest = TryCatch(async (req, res, next) => {
     const { userId } = req.body;
 
     const request = await Request.findOne({
@@ -98,14 +100,15 @@ const sendFriendRequest = TryCatch(async (req, res) => {
     })
 })
 
-const acceptFriendRequest = TryCatch(async (req, res) => {
+const acceptFriendRequest = TryCatch(async (req, res, next) => {
     const { requestId, accept } = req.body;
 
     const request = await Request.findById(requestId).populate("sender", "name").populate("receiver", "name")
 
     if (!request) return next(new ErrorHandler("Request not found", 404))
 
-    if (request.receiver.toString() !== req.user.toString()) return next(new ErrorHandler("You are not authorized to accept this request", 401));
+
+    if (request.receiver._id.toString() !== req.user.toString()) return next(new ErrorHandler("You are not authorized to accept this request", 401));
 
     if (!accept) {
         await request.deleteOne();
@@ -131,8 +134,60 @@ const acceptFriendRequest = TryCatch(async (req, res) => {
     return res.status(200).json({
         success: true,
         message: "Friend Request Accepted",
-        senderId: req.sender._id
+        senderId: request.sender._id
     })
 })
 
-export { login, newUser, getMyProfile, logout, searchUser, sendFriendRequest, acceptFriendRequest }
+const getMynotification = TryCatch(async (req, res) => {
+
+    const requests = await Request.find({
+        receiver: req.user
+    }).populate("sender", "name avatar")
+
+    const allRequests = requests.map(({ _id, sender }) => ({
+        _id, sender: {
+            _id: sender._id,
+            name: sender.name,
+            avatar: sender.avatar.url,
+        }
+    }))
+    return res.status(200).json({
+        success: true,
+        allRequests
+    })
+
+
+})
+
+const getMyFriend = TryCatch(async (req, res) => {
+    const chatId = req.query.chatId;
+
+    const chats = await Chat.find({ members: req.user, groupChat: false }).populate("members", "name avatar")
+    const friends = chats.map(({ members }) => {
+        const otherUser = getOtherMember(members, req.user)
+        return {
+            _id: otherUser._id,
+            name: otherUser.name,
+            avatar: otherUser.avatar.url,
+        }
+    })
+
+    console.log(friends);
+
+    if (chatId) {
+        const chat = await Chat.findById(chatId)
+        const availableFriends = friends.filter((x) => !chat.members.includes(x._id))
+
+        return res.status(200).json({
+            success: true,
+            friends: availableFriends,
+        })
+    } else {
+        return res.status(200).json({
+            success: true,
+            friends
+        })
+    }
+})
+
+export { login, newUser, getMyProfile, logout, searchUser, sendFriendRequest, acceptFriendRequest, getMynotification, getMyFriend }
