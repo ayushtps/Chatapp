@@ -9,9 +9,10 @@ import { NEW_REQUEST, REFETCH_CHATS } from '../constants/events.js';
 import { getOtherMember } from '../lib/helper.js';
 //create a user and save it to the database and save cookie
 
-const newUser = async (req, res) => {
+const newUser = TryCatch(async (req, res, next) => {
     const { name, username, bio, password } = req.body
-    console.log(req.body);
+    const file = req.file
+    if (!file) return next(new ErrorHandler("please upload Avatar"))
     const avatar = {
         public_id: 'jbsad',
         url: 'jncdj',
@@ -24,7 +25,7 @@ const newUser = async (req, res) => {
         avatar
     })
     sendToken(res, user, 201, "User Created")
-};
+})
 
 const login = TryCatch(async (req, res, next) => {
     const { username, password } = req.body

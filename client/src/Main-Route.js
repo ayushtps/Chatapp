@@ -1,7 +1,9 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedRouting from './component/auth/ProtectedRouting'
 import Loaders from './layout/Loaders'
+import { useDispatch, useSelector } from "react-redux";
+import { getMyProfile } from './redux/slices/AuthSlice';
 
 const LoginRegister = lazy(() => import('./pages/LoginRegister'))
 const Home = lazy(() => import('./pages/Home'))
@@ -17,7 +19,20 @@ const MessageManage = lazy(() => import('./pages/admin/MessageManage'))
 
 let user = true;
 
+
+
 function Main() {
+
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.auth.data)
+
+  console.log(state);
+
+  useEffect(() => {
+    dispatch(getMyProfile())
+    
+  }, [])
+
   return (
     <>
       <Suspense fallback={<Loaders />}>
