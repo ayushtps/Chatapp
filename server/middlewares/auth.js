@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
 import { ErrorHandler } from "../utils/utilitys.js";
+import { TryCatch } from './error.js';
 
-const isAuthenticated = (req, res, next) => {
+const isAuthenticated = TryCatch((req, res, next) => {
     const token = req.cookies['chatt-token'];
     if (!token) return next(new ErrorHandler("please login to access this route", 401))
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decodedData._id
     next()
-}
+})
 
 const adminOnly = (req, res, next) => {
     const token = req.cookies['chatt-admin-token'];
@@ -22,4 +23,4 @@ const adminOnly = (req, res, next) => {
     next()
 }
 
-export { isAuthenticated,adminOnly } 
+export { isAuthenticated, adminOnly } 

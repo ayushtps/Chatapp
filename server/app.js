@@ -6,7 +6,7 @@ import { errorMiddlewares } from "./middlewares/error.js";
 import { connectDB } from "./utils/features.js";
 import { v4 as uuid } from 'uuid'
 import cors from 'cors'
-
+import { v2 as cloudinary } from 'cloudinary'
 import chatRoute from './routes/chat.js';
 import userRoute from './routes/user.js';
 import adminRoute from './routes/admin.js';
@@ -15,9 +15,15 @@ import { NEW_MESSAGE, NEW_MESSAGE_ALERT } from "./constants/events.js";
 import { getSockets } from "./lib/helper.js";
 import { Message } from "./modals/message.js";
 
-const port = process.env.PORT || 3000
 dotenv.config()
+const port = process.env.PORT || 3000
 connectDB()
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 export const userSocketIDs = new Map()
 
@@ -28,8 +34,8 @@ const io = new Server(server, {})
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin:'http://localhost:3000',
-    credentials:true,
+    origin: 'http://localhost:3000',
+    credentials: true,
 }))
 
 app.use('/user', userRoute)
@@ -40,8 +46,8 @@ app.get('/', (req, res) => {
     res.send('hello word');
 })
 
-io.use((socket,next)=>{
-    
+io.use((socket, next) => {
+
 })
 
 io.on("connection", (socket) => {
@@ -79,7 +85,7 @@ io.on("connection", (socket) => {
         io.to(membersSockets).emit(NEW_MESSAGE_ALERT, {
             chatId
         })
-        
+
         try {
             await Message.create(messageForDB)
         } catch (error) {

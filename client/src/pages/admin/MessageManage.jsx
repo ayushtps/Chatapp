@@ -20,10 +20,10 @@ const MessageManage = () => {
       dataIndex: 'attachments',
       key: 'attachments',
       render: (value) => {
-        return value?.length > 0 ? value.map((x) => {
+        return value?.length > 0 ? value.map((x,i) => {
           const url = x.url;
           const file = fileFormate(url)
-          return <Box>
+          return <Box key={i}>
             <a href={url} download target='_blank' style={{color:'black'}}>
             {
               RenderAttachment(file,url)

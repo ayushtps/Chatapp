@@ -9,8 +9,8 @@ const app = express.Router()
 app.post('/new', singleAvtar, registerValidator(), validateHandler, newUser)
 app.post('/login', loginValidator(), validateHandler, login)
 
-app.use(isAuthenticated)
 
+app.use(isAuthenticated)
 app.get('/me', getMyProfile)
 app.get('/logout', logout)
 app.get('/search', searchUser)

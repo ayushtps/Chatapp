@@ -5,11 +5,16 @@ import { API_KEY } from "../../environment";
 
 export const getMyProfile = createAsyncThunk('authCheck', async () => {
     try {
-        let response = await axios.get('http://localhost:3000/user/me');
+        let response = await axios.get('http://localhost:5000/user/me');
         return response.data
     }
     catch (error) {
-        throw error
+        if (error.response) {
+            throw error.response.data.message
+        }
+        else {
+            throw error
+        }
     }
 })
 
@@ -17,7 +22,7 @@ const AuthSlice = createSlice({
     name: 'Auth',
     initialState: {
         isLoading: false,
-        data: null,
+        user: null,
         isError: false,
         errorMessage: ''
     },
@@ -27,12 +32,13 @@ const AuthSlice = createSlice({
         })
         builder.addCase(getMyProfile.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.data = action.payload
+            state.user = action.payload
         })
         builder.addCase(getMyProfile.rejected, (state, action) => {
+            // console.log(action);
             state.isError = true;
             state.data = action.error.message;
-            state.isLoading = true
+            state.isLoading = false
         })
     }
 })

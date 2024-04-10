@@ -17,23 +17,27 @@ const UserManage = lazy(() => import('./pages/admin/UserManage'))
 const ChatManage = lazy(() => import('./pages/admin/ChatManage'))
 const MessageManage = lazy(() => import('./pages/admin/MessageManage'))
 
-let user = true;
-
-
 
 function Main() {
-
   const dispatch = useDispatch()
-  const state = useSelector(state => state.auth.data)
-
-  console.log(state);
+  const { user, isLoading } = useSelector(state => state.auth)
 
   useEffect(() => {
-    dispatch(getMyProfile())
-    
+    // getDataOfProfile()
   }, [])
 
-  return (
+  const getDataOfProfile = async () => {
+    let result = await dispatch(getMyProfile())
+    // console.log(result);
+    if (result.type === 'authCheck/fulfilled') {
+      // console.log('skh');
+    }
+    else {
+      // console.log(result.error.message);
+    }
+  }
+
+  return isLoading ? <Loaders /> : ( 
     <>
       <Suspense fallback={<Loaders />}>
         <Routes>
