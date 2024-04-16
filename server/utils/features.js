@@ -33,6 +33,32 @@ const emitEvent = (req, event, users, data) => {
   console.log('Emiting event', event);
 }
 
+// const uploadFilesToCloudinary = async (files = []) => {
+//   const uploadPromises = files.map((file) => {
+//     return new Promise((resolve, reject) => {
+//       cloudinary.uploader.upload(file.path, {
+//         resource_type: "auto",
+//         public_id: uuid(),
+//       }, (error, result) => {
+//         if (error) return reject(error)
+//         resolve(result)
+//       })
+//     })
+//   })
+//   try {
+//     const results = await Promise.all(uploadPromises);
+
+//     const formettedResult = results.map((result) => ({
+//       public_id: result.public_id,
+//       url: result.secure_url
+//     }))
+
+//     return formettedResult
+//   } catch (err) {
+//     throw new Error("Error uploading files to cloudinary",err)
+//   }
+// }
+
 const uploadFilesToCloudinary = async (files = []) => {
   const uploadPromises = files.map((file) => {
     return new Promise((resolve, reject) => {
@@ -52,7 +78,6 @@ const uploadFilesToCloudinary = async (files = []) => {
       public_id: result.public_id,
       url: result.secure_url
     }))
-
     return formettedResult
   } catch (error) {
     throw new Error("Error uploading files to cloudinary",error)

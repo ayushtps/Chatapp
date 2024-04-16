@@ -5,7 +5,7 @@ import { API_KEY } from "../../environment";
 
 export const getMyProfile = createAsyncThunk('authCheck', async () => {
     try {
-        let response = await axios.get('http://localhost:5000/user/me');
+        let response = await axios.get('http://localhost:5000/user/me',{withCredentials:true});
         return response.data
     }
     catch (error) {
@@ -35,9 +35,8 @@ const AuthSlice = createSlice({
             state.user = action.payload
         })
         builder.addCase(getMyProfile.rejected, (state, action) => {
-            // console.log(action);
             state.isError = true;
-            state.data = action.error.message;
+            state.user = null;
             state.isLoading = false
         })
     }
